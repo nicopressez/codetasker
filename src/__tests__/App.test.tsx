@@ -6,7 +6,7 @@ import App from '../App';
 describe('Renders main page correctly', async () => {
     it('Should render the page correctly', async () => {
         render(<App/>)
-        const h1 = await screen.queryByText('Hello world!')
+        const h1 =  screen.queryByText('Hello world!')
         expect(h1).not.toBeNull();
     });
 });
