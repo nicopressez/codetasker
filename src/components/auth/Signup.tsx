@@ -1,16 +1,17 @@
-import { useAuth } from '../../contexts/AuthContext.jsx'
 import { useState } from 'react'
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+
 
 export default function Signup() {
+
+ const auth = getAuth()
 
  const [email, setEmail] = useState("")
  const [password, setPassword] = useState("")
  const [repeatPassword, setRepeatPassword] = useState("")
 
- const { signup } = useAuth()
-
  // Edit state values on input change
- const handleChange = (e: React.ChangeEvent<HTMLFormElement>) => {
+ const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   const {name, value} = e.target
   if (name === "email") setEmail(value)
   if (name === "password") setPassword(value)
@@ -23,7 +24,19 @@ export default function Signup() {
  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault()
   if(password === repeatPassword) {
-   signup(email, password)
+  createUserWithEmailAndPassword(auth, email, password)
+       .then((userCredential => {
+              //Signed up
+              const user = userCredential.user;
+              console.log(`New user created: ${email}`);
+       }))
+       .catch((error) => {
+              console.log(error)
+       })
+
+  } else {
+       //TODO : Add error message
+       console.log("Passwords don't match")
   }
  }
  return (
