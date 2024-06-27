@@ -1,14 +1,14 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import env from "react-dotenv";
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: env.FIREBASE_KEY,
+  apiKey: import.meta.env.VITE_FIREBASE_KEY,
   authDomain: "codetasker-56e43.firebaseapp.com",
   projectId: "codetasker-56e43",
   storageBucket: "codetasker-56e43.appspot.com",
