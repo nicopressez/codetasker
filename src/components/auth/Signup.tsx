@@ -32,11 +32,11 @@ export default function Signup( { setLoginPage } :
   createUserWithEmailAndPassword(auth, email, password)
        .then((userCredential => {
               //Signed up
-              //TODO: Login to user
               const user = userCredential.user;
               console.log(`New user created: ${email}`);
        }))
        .catch((error) => {
+              // TODO: Add error
               console.log(error)
        })
 
