@@ -1,7 +1,13 @@
 import { useState } from 'react'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
-export default function Signup() {
+type SignupProps = {
+  setLoginPage: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export default function Signup( { setLoginPage } : 
+       SignupProps
+) {
 
  const auth = getAuth()
 
@@ -72,7 +78,10 @@ export default function Signup() {
               <input type="submit"
                      value="Submit"></input>
       </form>
-     Already have an account? Log in
+     Already have an account? 
+     <button onClick={() => setLoginPage(true)}>
+       Log in
+       </button>
     </div>
   </>
  )
