@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
-
 export default function Signup() {
 
  const auth = getAuth()
@@ -27,6 +26,7 @@ export default function Signup() {
   createUserWithEmailAndPassword(auth, email, password)
        .then((userCredential => {
               //Signed up
+              //TODO: Login to user
               const user = userCredential.user;
               console.log(`New user created: ${email}`);
        }))

@@ -1,12 +1,23 @@
 import { Outlet } from "react-router-dom"
-import { AuthProvider } from "./contexts/AuthContext.jsx"
+import { auth } from "./config/firebase"
+import { onAuthStateChanged } from "firebase/auth"
+
 
 function App() {
 
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // TODO: Add redirect if user login in
+      const uid = user.uid;
+      // ...
+    } else {
+      // User is signed out
+    }
+  });
+  
+
   return (
-    <AuthProvider>
      <Outlet />
-     </AuthProvider>
   )
 }
 
