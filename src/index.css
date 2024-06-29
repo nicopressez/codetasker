@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+ font-family: "Roboto";
+ src: url("./assets/Roboto-Regular.ttf");
+}
+
+@font-face {
+ font-family: "RobotoMed";
+ src: url("./assets/Roboto-Medium.ttf");
+}

@@ -6,10 +6,11 @@ export default function Auth() {
 
  const [loginPage, setLoginPage] = useState(false)
 
- if (loginPage) return (
-  <Login setLoginPage={setLoginPage}/>
- )
  return (
-  <Signup setLoginPage={setLoginPage}/>
+  <div className=" bg-purple-300 w-full h-full fixed">
+   <div className=" pl-[37%] h-full">
+   <Signup setLoginPage={setLoginPage} />
+   </div>
+  </div>
  )
 }

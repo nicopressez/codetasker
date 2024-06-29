@@ -49,31 +49,35 @@ export default function Signup( { setLoginPage } :
   <>
   
 
-    <div className="w-100 text-center mt-2">
-     <h1 className=" font-bold">
-      Signup
+    <div className="p-20  bg-white font-roboto rounded-xl">
+     <h1 className=" font-bold text-2xl mb-10">
+      Create Account
       </h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className='flex flex-col'>
+       <label htmlFor='email'>Email address</label>
        <input id="email" 
               type="email"
               name="email"
-              placeholder="Email address"
               value={email}
               onChange={handleChange}
+              className=' border-gray-200 border-[1px] rounded-md'
               ></input>
+              
+       <label htmlFor='password'>Password</label>
        <input id="password"
               type="password"
               name="password"
-              placeholder="Password"
               value={password}
               onChange={handleChange}
+              className=' border-gray-200 border-[1px] rounded-md'
               ></input>
+       <label htmlFor='repeatPassword'>Repeat Password</label>
        <input id="repeatPassword"
               type="password"
               name="repeatPassword"
-              placeholder="Repeat password"
               value={repeatPassword}
               onChange={handleChange}
+              className=' border-gray-200 border-[1px] rounded-md'
               ></input>
               <input type="submit"
                      value="Submit"></input>
