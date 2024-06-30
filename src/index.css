@@ -11,3 +11,13 @@
  font-family: "RobotoMed";
  src: url("./assets/Roboto-Medium.ttf");
 }
+
+@font-face {
+ font-family: "Rubik";
+ src: url("./assets/Rubik-Regular.ttf");
+}
+
+@font-face {
+ font-family: "RubikMed";
+ src: url("./assets/Rubik-Medium.ttf");
+}

@@ -8,6 +8,8 @@ export default {
     fontFamily: {
       roboto: ["Roboto", "sans-serif"],
       robotoMed: ["RobotoMed", "sans-serif"],
+      rubik: ["Rubik", "sans-serif"],
+      rubikMed: ["RubikMed", "sans-serif"]
     },
     extend: {},
   },

@@ -49,38 +49,50 @@ export default function Signup( { setLoginPage } :
   <>
   
 
-    <div className="p-20  bg-white font-roboto rounded-xl">
-     <h1 className=" font-bold text-2xl mb-10">
+    <div className=" pt-20 pb-20 pl-48 pr-48 h-full  bg-white font-rubik rounded-2xl">
+     <h1 className=" font-bold text-3xl mb-10">
       Create Account
       </h1>
-      <form onSubmit={handleSubmit} className='flex flex-col'>
-       <label htmlFor='email'>Email address</label>
+      <form onSubmit={handleSubmit} className='flex flex-col 
+       '>
+       <label htmlFor='email'
+              className='text-gray-400'>
+                     Email address
+                     </label>
        <input id="email" 
               type="email"
               name="email"
               value={email}
               onChange={handleChange}
-              className=' border-gray-200 border-[1px] rounded-md'
+              className=' border-gray-200 border-2 rounded-lg mb-5 p-2'
               ></input>
               
-       <label htmlFor='password'>Password</label>
+       <label htmlFor='password'
+              className='text-gray-400'>
+              Password
+              </label>
        <input id="password"
               type="password"
               name="password"
               value={password}
               onChange={handleChange}
-              className=' border-gray-200 border-[1px] rounded-md'
+              className=' border-gray-200 border-2 rounded-lg mb-5 p-2'
               ></input>
-       <label htmlFor='repeatPassword'>Repeat Password</label>
+       <label htmlFor='repeatPassword'
+              className='text-gray-400'>
+              Repeat Password
+              </label>
        <input id="repeatPassword"
               type="password"
               name="repeatPassword"
               value={repeatPassword}
               onChange={handleChange}
-              className=' border-gray-200 border-[1px] rounded-md'
+              className=' border-gray-200 border-2 rounded-lg mb-5 p-2'
               ></input>
               <input type="submit"
-                     value="Submit"></input>
+                     value="Create Account"
+                     className='p-2 bg-cyan-400 rounded-2xl text-white
+                      font-semibold hover:cursor-pointer'></input>
       </form>
      Already have an account? 
      <button onClick={() => setLoginPage(true)}>
