@@ -9,7 +9,8 @@ export default function Auth() {
  return (
   <div className=" bg-indigo-400 w-full h-full fixed">
    <div className=" pl-[37%] h-full">
-   <Signup setLoginPage={setLoginPage} />
+   { loginPage ? <Login setLoginPage={setLoginPage}/> :
+   <Signup setLoginPage={setLoginPage} />}
    </div>
   </div>
  )

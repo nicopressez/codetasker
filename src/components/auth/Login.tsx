@@ -35,31 +35,48 @@ export default function Login( { setLoginPage } :
       })
   }
   return (
-    <div className='w-100 text-center mt-2'>
-    <h1 className=" font-bold">
-      Login
+    <div className=" pt-24 pb-20 pl-52 pr-48 h-full  bg-white font-rubik rounded-l-[2.5rem]">
+     <h1 className=" font-bold text-3xl mb-10 tracking-wide">
+      Log in
       </h1>
-      <form onSubmit={handleSubmit}>
-      <input type="email"
-             name="email"
-             placeholder="Email address"
-             value={email}
-             onChange={handleChange}
-      />
-      <input type="password"
-             name="password"
-             placeholder="Password"
-             value={password}
-             onChange={handleChange}
-      />
-      <input type="submit"
-             value="Submit"/>
+      <form onSubmit={handleSubmit} className='flex flex-col 
+       '>
+       <label htmlFor='email'
+              className='text-gray-400'>
+                     Email address
+                     </label>
+       <input id="email" 
+              type="email"
+              name="email"
+              value={email}
+              onChange={handleChange}
+              className=' border-gray-200 border-2 rounded-lg mb-5 p-2'
+              ></input>
+              
+       <label htmlFor='password'
+              className='text-gray-400'>
+              Password
+              </label>
+       <input id="password"
+              type="password"
+              name="password"
+              value={password}
+              onChange={handleChange}
+              className=' border-gray-200 border-2 rounded-lg mb-5 p-2'
+              ></input>
+       
+              <input type="submit"
+                     value="Log in"
+                     className='p-2 bg-indigo-400 rounded-2xl text-white
+                      font-semibold hover:cursor-pointer'></input>
       </form>
-     <p>Don't have an account yet? 
-      <button onClick={() => setLoginPage(false)}>
-        Signup
-        </button>
-     </p>
+      <p className='mt-5 text-gray-400'>
+     Don't have an account yet?
+     <button onClick={() => setLoginPage(false)}
+       className='text-indigo-400 ml-1'>
+        Sign up
+       </button>
+       </p>
     </div>
   )
 }
