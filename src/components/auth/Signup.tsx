@@ -49,8 +49,8 @@ export default function Signup( { setLoginPage } :
   <>
   
 
-    <div className=" pt-20 pb-20 pl-48 pr-48 h-full  bg-white font-rubik rounded-2xl">
-     <h1 className=" font-bold text-3xl mb-10">
+    <div className=" pt-24 pb-20 pl-52 pr-48 h-full  bg-white font-rubik rounded-l-[2.5rem]">
+     <h1 className=" font-bold text-3xl mb-10 tracking-wide">
       Create Account
       </h1>
       <form onSubmit={handleSubmit} className='flex flex-col 
@@ -91,13 +91,16 @@ export default function Signup( { setLoginPage } :
               ></input>
               <input type="submit"
                      value="Create Account"
-                     className='p-2 bg-cyan-400 rounded-2xl text-white
+                     className='p-2 bg-indigo-400 rounded-2xl text-white
                       font-semibold hover:cursor-pointer'></input>
       </form>
+      <p className='mt-5 text-gray-400'>
      Already have an account? 
-     <button onClick={() => setLoginPage(true)}>
-       Log in
+     <button onClick={() => setLoginPage(true)}
+       className='text-indigo-400 ml-1'>
+        Log in
        </button>
+       </p>
     </div>
   </>
  )
