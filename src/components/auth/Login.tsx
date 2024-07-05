@@ -11,6 +11,9 @@ export default function Login( { setLoginPage } :
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [isLoading, setIsLoading] = useState(false)
+
+
   const auth = getAuth();
 
   // Edit state values on input change
@@ -23,8 +26,12 @@ export default function Login( { setLoginPage } :
   // Send login request on submit
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    setIsLoading(true)
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredentials) => {
+        setTimeout(() => {
+          setIsLoading(false)
+        }, 200);
         const user = userCredentials
         // TODO: Store user data
         console.log(user)
@@ -32,6 +39,9 @@ export default function Login( { setLoginPage } :
       .catch((err) => {
         //TODO : Add error handling
         console.log(err)
+        setTimeout(() => {
+          setIsLoading(false)
+        }, 500);
       })
   }
   return (
@@ -50,7 +60,8 @@ export default function Login( { setLoginPage } :
               name="email"
               value={email}
               onChange={handleChange}
-              className=' border-gray-200 border-2 rounded-lg mb-5 p-2'
+              className= {`border-gray-200 border-2 rounded-lg mb-5 p-2
+                ${isLoading && "brightness-95"}`}
               ></input>
               
        <label htmlFor='password'
@@ -62,13 +73,15 @@ export default function Login( { setLoginPage } :
               name="password"
               value={password}
               onChange={handleChange}
-              className=' border-gray-200 border-2 rounded-lg mb-5 p-2'
+              className= {`border-gray-200 border-2 rounded-lg mb-5 p-2
+                ${isLoading && "brightness-95"}`}
               ></input>
        
               <input type="submit"
                      value="Log in"
-                     className='p-2 bg-indigo-400 rounded-2xl text-white
-                      font-semibold hover:cursor-pointer'></input>
+                     className={`p-2 bg-indigo-400 rounded-2xl text-white
+                      font-semibold hover:cursor-pointer
+                      ${isLoading && "brightness-90"}`}></input>
       </form>
       <p className='mt-5 text-gray-400'>
      Don't have an account yet?

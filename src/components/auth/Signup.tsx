@@ -15,6 +15,8 @@ export default function Signup( { setLoginPage } :
  const [password, setPassword] = useState("")
  const [repeatPassword, setRepeatPassword] = useState("")
 
+ const [isLoading, setIsLoading] = useState(false)
+
  // Edit state values on input change
  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   const {name, value} = e.target
@@ -28,21 +30,31 @@ export default function Signup( { setLoginPage } :
  // Send signup request on submit
  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault()
+  setIsLoading(true)
   if(password === repeatPassword) {
   createUserWithEmailAndPassword(auth, email, password)
        .then((userCredential => {
               //Signed up
+              setTimeout(() => {
+                     setIsLoading(false)
+                   }, 200);
               const user = userCredential.user;
               console.log(`New user created: ${email}`);
        }))
        .catch((error) => {
               // TODO: Add error
               console.log(error)
+              setTimeout(() => {
+                     setIsLoading(false)
+                   }, 500);
        })
 
   } else {
        //TODO : Add error message
        console.log("Passwords don't match")
+       setTimeout(() => {
+              setIsLoading(false)
+            }, 500);
   }
  }
  return (
@@ -64,7 +76,8 @@ export default function Signup( { setLoginPage } :
               name="email"
               value={email}
               onChange={handleChange}
-              className=' border-gray-200 border-2 rounded-lg mb-5 p-2'
+              className= {`border-gray-200 border-2 rounded-lg mb-5 p-2
+                     ${isLoading && "brightness-95"}`}
               ></input>
               
        <label htmlFor='password'
@@ -76,8 +89,8 @@ export default function Signup( { setLoginPage } :
               name="password"
               value={password}
               onChange={handleChange}
-              className=' border-gray-200 border-2 rounded-lg mb-5 p-2'
-              ></input>
+              className= {`border-gray-200 border-2 rounded-lg mb-5 p-2
+                     ${isLoading && "brightness-95"}`}              ></input>
        <label htmlFor='repeatPassword'
               className='text-gray-400'>
               Repeat Password
@@ -87,17 +100,19 @@ export default function Signup( { setLoginPage } :
               name="repeatPassword"
               value={repeatPassword}
               onChange={handleChange}
-              className=' border-gray-200 border-2 rounded-lg mb-5 p-2'
-              ></input>
+              className= {`border-gray-200 border-2 rounded-lg mb-5 p-2
+                     ${isLoading && "brightness-95"}`}              ></input>
               <input type="submit"
                      value="Create Account"
-                     className='p-2 bg-indigo-400 rounded-2xl text-white
-                      font-semibold hover:cursor-pointer'></input>
+                     className={`p-2 bg-indigo-400 rounded-2xl text-white
+                      font-semibold hover:cursor-pointer 
+                      ${isLoading && "brightness-90"}`}></input>
       </form>
       <p className='mt-5 text-gray-400'>
      Already have an account? 
      <button onClick={() => setLoginPage(true)}
-       className='text-indigo-400 ml-1'>
+       className={`text-indigo-400 ml-1 
+       ${isLoading && "brightness-95"}`}>
         Log in
        </button>
        </p>
