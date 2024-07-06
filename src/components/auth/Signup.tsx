@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import googleLogo from '../../assets/google.png'
+
 
 type SignupProps = {
     setLoginPage: React.Dispatch<React.SetStateAction<boolean>>;
@@ -8,6 +9,7 @@ type SignupProps = {
 
 export default function Signup({ setLoginPage }: SignupProps) {
     const auth = getAuth();
+    const provider = new GoogleAuthProvider();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -42,6 +44,20 @@ export default function Signup({ setLoginPage }: SignupProps) {
         return newErrors;
     };
 
+    // Google authentication
+    const handleGoogleAuth = () => {
+       // TODO: For phone users, login with redirect
+       signInWithPopup(auth, provider)
+              .then((result) => {
+                     // Logged in
+                     const credential = GoogleAuthProvider.credentialFromResult(result)
+                     const token= credential?.accessToken
+              })
+              .catch((error) => {
+              // TODO: Add error handling
+              console.log(error)
+            });
+    }
     // Send signup request on submit
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -82,7 +98,8 @@ export default function Signup({ setLoginPage }: SignupProps) {
                 </h1>
                 <div className='flex justify-center'>
                 <button className='text-center w-full border-2 border-gray-200 rounded-lg
-                p-2 hover:brightness-95 '>
+                p-2 hover:brightness-95 '
+                onClick={handleGoogleAuth}>
                      <img src={googleLogo} alt='Logo' className='inline mr-2'/>
                      Continue with Google
                 </button>

@@ -1,4 +1,4 @@
-import { signInWithEmailAndPassword, getAuth } from 'firebase/auth';
+import { signInWithEmailAndPassword, getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import React, { useState } from 'react';
 import googleLogo from '../../assets/google.png'
 
@@ -15,6 +15,7 @@ export default function Login({ setLoginPage }: LoginProps) {
     const [error, setError] = useState(false);
 
     const auth = getAuth();
+    const provider = new GoogleAuthProvider();
 
     // Edit state values on input change
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,11 +24,25 @@ export default function Login({ setLoginPage }: LoginProps) {
         if (name === 'password') setPassword(value);
     };
 
+// Google authentication
+const handleGoogleAuth = () => {
+  // TODO: For phone users, login with redirect
+  signInWithPopup(auth, provider)
+         .then((result) => {
+                // Logged in
+                const credential = GoogleAuthProvider.credentialFromResult(result)
+                const token= credential?.accessToken
+         })
+         .catch(() => {
+         setError(true)
+       });
+}
     // Send login request on submit
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setError(false);
         setIsLoading(true);
+
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredentials) => {
                 setTimeout(() => {
@@ -54,7 +69,8 @@ export default function Login({ setLoginPage }: LoginProps) {
             )}
             <div className='flex justify-center'>
                 <button className='text-center w-full border-2 border-gray-200 rounded-lg
-                p-2 hover:brightness-95 '>
+                p-2 hover:brightness-95 '
+                onClick={handleGoogleAuth}>
                      <img src={googleLogo} alt='Logo' className='inline mr-2'/>
                      Continue with Google
                 </button>
