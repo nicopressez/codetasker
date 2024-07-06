@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import googleLogo from '../../assets/google.png'
 
 type SignupProps = {
     setLoginPage: React.Dispatch<React.SetStateAction<boolean>>;
@@ -76,9 +77,19 @@ export default function Signup({ setLoginPage }: SignupProps) {
     return (
         <>
             <div className=" pt-24 pb-20 pl-52 pr-48 h-full  bg-white font-rubik rounded-l-[2.5rem]">
-                <h1 className=" font-bold text-3xl mb-10 tracking-wide">
+                <h1 className=" font-bold text-3xl mb-7 tracking-wide">
                     Create Account
                 </h1>
+                <div className='flex justify-center'>
+                <button className='text-center w-full border-2 border-gray-200 rounded-lg
+                p-2 hover:brightness-95 '>
+                     <img src={googleLogo} alt='Logo' className='inline mr-2'/>
+                     Continue with Google
+                </button>
+                </div>
+                <p className='text-center text-gray-400 text-lg mt-2 mb-2'>
+                     - OR -
+                     </p>
                 <form
                     onSubmit={handleSubmit}
                     className="flex flex-col 
