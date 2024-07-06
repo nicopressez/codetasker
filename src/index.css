@@ -3,21 +3,21 @@
 @tailwind utilities;
 
 @font-face {
- font-family: "Roboto";
- src: url("./assets/Roboto-Regular.ttf");
+    font-family: 'Roboto';
+    src: url('./assets/Roboto-Regular.ttf');
 }
 
 @font-face {
- font-family: "RobotoMed";
- src: url("./assets/Roboto-Medium.ttf");
+    font-family: 'RobotoMed';
+    src: url('./assets/Roboto-Medium.ttf');
 }
 
 @font-face {
- font-family: "Rubik";
- src: url("./assets/Rubik-Regular.ttf");
+    font-family: 'Rubik';
+    src: url('./assets/Rubik-Regular.ttf');
 }
 
 @font-face {
- font-family: "RubikMed";
- src: url("./assets/Rubik-Medium.ttf");
+    font-family: 'RubikMed';
+    src: url('./assets/Rubik-Medium.ttf');
 }
