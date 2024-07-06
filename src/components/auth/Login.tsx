@@ -10,6 +10,7 @@ export default function Login({ setLoginPage }: LoginProps) {
     const [password, setPassword] = useState('');
 
     const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(false)
 
     const auth = getAuth();
 
@@ -23,6 +24,7 @@ export default function Login({ setLoginPage }: LoginProps) {
     // Send login request on submit
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setError(false)
         setIsLoading(true);
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredentials) => {
@@ -34,8 +36,7 @@ export default function Login({ setLoginPage }: LoginProps) {
                 console.log(user);
             })
             .catch((err) => {
-                //TODO : Add error handling
-                console.log(err);
+                setError(true)
                 setTimeout(() => {
                     setIsLoading(false);
                 }, 500);
@@ -43,7 +44,8 @@ export default function Login({ setLoginPage }: LoginProps) {
     };
     return (
         <div className=" pt-24 pb-20 pl-52 pr-48 h-full  bg-white font-rubik rounded-l-[2.5rem]">
-            <h1 className=" font-bold text-3xl mb-10 tracking-wide">Log in</h1>
+            <h1 className=" font-bold text-3xl mb-4 tracking-wide">Log in</h1>
+            {error && <p className='text-red-500 mb-5'>Wrong credentials. Please try again.</p>}
             <form
                 onSubmit={handleSubmit}
                 className="flex flex-col 
