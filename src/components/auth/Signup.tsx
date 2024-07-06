@@ -12,6 +12,12 @@ export default function Signup({ setLoginPage }: SignupProps) {
     const [password, setPassword] = useState('');
     const [repeatPassword, setRepeatPassword] = useState('');
 
+    const [errors, setErrors] = useState({
+        email: false,
+        password: false,
+        passwordMatch: false,
+        emailUsed: false,
+    });
     const [isLoading, setIsLoading] = useState(false);
 
     // Edit state values on input change
@@ -24,34 +30,48 @@ export default function Signup({ setLoginPage }: SignupProps) {
         return;
     };
 
+    //Validate form inputs
+    const validateForm = () => {
+        const newErrors = {
+            email: email.length < 8,
+            password: password.length < 8,
+            passwordMatch: password !== repeatPassword,
+            emailUsed: false,
+        };
+        return newErrors;
+    };
+
     // Send signup request on submit
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setIsLoading(true);
-        if (password === repeatPassword) {
-            createUserWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                    //Signed up
-                    setTimeout(() => {
-                        setIsLoading(false);
-                    }, 200);
-                    const user = userCredential.user;
-                    console.log(`New user created: ${email}`);
-                })
-                .catch((error) => {
-                    // TODO: Add error
-                    console.log(error);
-                    setTimeout(() => {
-                        setIsLoading(false);
-                    }, 500);
-                });
-        } else {
-            //TODO : Add error message
-            console.log("Passwords don't match");
+
+        // Check errors in form
+        const validationErrors = validateForm();
+        setErrors(validationErrors);
+
+        if (Object.values(validationErrors).some((error) => error)) {
             setTimeout(() => {
                 setIsLoading(false);
             }, 500);
+            return;
         }
+
+        // No errors, create user
+        createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                //Signed up
+                setTimeout(() => {
+                    setIsLoading(false);
+                }, 200);
+                const user = userCredential.user;
+            })
+            .catch((err) => {
+                setErrors((prevErrors) => ({ ...prevErrors, emailUsed: true }));
+                setTimeout(() => {
+                    setIsLoading(false);
+                }, 500);
+            });
     };
     return (
         <>
@@ -66,6 +86,16 @@ export default function Signup({ setLoginPage }: SignupProps) {
                 >
                     <label htmlFor="email" className="text-gray-400">
                         Email address
+                        {errors.email && (
+                            <p className=" text-red-500 float-right">
+                                Must be at least 8 characters long
+                            </p>
+                        )}
+                        {errors.emailUsed && (
+                            <p className=" text-red-500 float-right">
+                                Already in use
+                            </p>
+                        )}
                     </label>
                     <input
                         id="email"
@@ -79,6 +109,11 @@ export default function Signup({ setLoginPage }: SignupProps) {
 
                     <label htmlFor="password" className="text-gray-400">
                         Password
+                        {errors.password && (
+                            <p className=" text-red-500 float-right">
+                                Must be at least 8 characters long
+                            </p>
+                        )}
                     </label>
                     <input
                         id="password"
@@ -91,6 +126,11 @@ export default function Signup({ setLoginPage }: SignupProps) {
                     ></input>
                     <label htmlFor="repeatPassword" className="text-gray-400">
                         Repeat Password
+                        {errors.passwordMatch && (
+                            <p className=" text-red-500 float-right">
+                                Passwords don't match
+                            </p>
+                        )}
                     </label>
                     <input
                         id="repeatPassword"
