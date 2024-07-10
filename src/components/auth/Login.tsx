@@ -1,7 +1,11 @@
-import { signInWithEmailAndPassword, getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import {
+    signInWithEmailAndPassword,
+    getAuth,
+    signInWithPopup,
+    GoogleAuthProvider,
+} from 'firebase/auth';
 import React, { useState } from 'react';
-import googleLogo from '../../assets/google.png'
-
+import googleLogo from '../../assets/google.png';
 
 type LoginProps = {
     setLoginPage: React.Dispatch<React.SetStateAction<boolean>>;
@@ -24,19 +28,20 @@ export default function Login({ setLoginPage }: LoginProps) {
         if (name === 'password') setPassword(value);
     };
 
-// Google authentication
-const handleGoogleAuth = () => {
-  // TODO: For phone users, login with redirect
-  signInWithPopup(auth, provider)
-         .then((result) => {
+    // Google authentication
+    const handleGoogleAuth = () => {
+        // TODO: For phone users, login with redirect
+        signInWithPopup(auth, provider)
+            .then((result) => {
                 // Logged in
-                const credential = GoogleAuthProvider.credentialFromResult(result)
-                const token= credential?.accessToken
-         })
-         .catch(() => {
-         setError(true)
-       });
-}
+                const credential =
+                    GoogleAuthProvider.credentialFromResult(result);
+                const token = credential?.accessToken;
+            })
+            .catch(() => {
+                setError(true);
+            });
+    };
     // Send login request on submit
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -67,17 +72,19 @@ const handleGoogleAuth = () => {
                     Wrong credentials. Please try again.
                 </p>
             )}
-            <div className='flex justify-center'>
-                <button className='text-center w-full border-2 border-gray-200 rounded-lg
-                p-2 hover:brightness-95 '
-                onClick={handleGoogleAuth}>
-                     <img src={googleLogo} alt='Logo' className='inline mr-2'/>
-                     Continue with Google
+            <div className="flex justify-center">
+                <button
+                    className="text-center w-full border-2 border-gray-200 rounded-lg
+                p-2 hover:brightness-95 "
+                    onClick={handleGoogleAuth}
+                >
+                    <img src={googleLogo} alt="Logo" className="inline mr-2" />
+                    Continue with Google
                 </button>
-                </div>
-                <p className='text-center text-gray-400 text-lg mt-2 mb-2'>
-                     - OR -
-                     </p>
+            </div>
+            <p className="text-center text-gray-400 text-lg mt-2 mb-2">
+                - OR -
+            </p>
             <form
                 onSubmit={handleSubmit}
                 className="flex flex-col 
