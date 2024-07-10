@@ -7,20 +7,20 @@ export default function Auth() {
     const [loginPage, setLoginPage] = useState(false);
 
     return (
-        <div className=" bg-indigo-300 w-full h-full fixed">
-            <div className="fixed top-44 left-20">
+        <div className=" bg-indigo-300 w-screen h-screen md:fixed">
+            <div className="md:fixed p-5 md:p-0 md:top-44 md:left-20">
                 <h1
-                    className="bg-white w-52 font-rubikMed text-5xl text-center text-gray-800
+                    className="bg-white md:w-52 font-rubikMed text-3xl md:text-5xl text-center text-gray-800
           pt-2 pb-2 rounded-md"
                 >
                     <img
-                        className="inline h-8 mb-2 mr-1"
+                        className="inline md:h-8 mb-2 mr-1"
                         src={logo}
                         alt="Logo"
                     ></img>
                     Tasker
                 </h1>
-                <div className="font-rubikMed text-3xl mt-4">
+                <div className="font-rubikMed text-2xl md:text-3xl mt-4">
                     <p>
                         Optimize your work <br />
                         delivery to multiple teams <br />
@@ -29,7 +29,7 @@ export default function Auth() {
                         single environment.
                     </p>
                 </div>
-                <div className="font-rubik mt-3 text-lg">
+                <div className="font-rubik mt-2 md:mt-3 md:text-lg">
                     <p>
                         Achieve continuous improvement and sustainable <br />
                         change within an organization implementing <br />
@@ -38,7 +38,7 @@ export default function Auth() {
                     </p>
                 </div>
             </div>
-            <div className=" pl-[37%] h-full">
+            <div className=" md:pl-[37%] md:h-full">
                 {loginPage ? (
                     <Login setLoginPage={setLoginPage} />
                 ) : (
