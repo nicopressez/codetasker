@@ -65,13 +65,10 @@ export default function Login({ setLoginPage }: LoginProps) {
             });
     };
     return (
-        <div className=" pt-24 pb-20 pl-52 pr-48 h-full  bg-white font-rubik rounded-l-[2.5rem]">
-            <h1 className=" font-bold text-3xl mb-7 tracking-wide">Log in</h1>
-            {error && (
-                <p className="text-red-500 mb-1 -mt-2">
-                    Wrong credentials. Please try again.
-                </p>
-            )}
+        <div className="p-5 md:pt-24 md:pb-20 md:pl-52 md:pr-48 md:h-full  bg-white font-rubik rounded-[1.5rem] md:rounded-r-none md:rounded-l-[2.5rem]">
+                <h1 className=" font-bold text-2xl md:text-3xl mb-7 tracking-wide text-center md:text-left">
+                Log in
+                </h1>
             <div className="flex justify-center">
                 <button
                     className="text-center w-full border-2 border-gray-200 rounded-lg
@@ -115,7 +112,11 @@ export default function Login({ setLoginPage }: LoginProps) {
                     className={`border-gray-200 border-2 rounded-lg mb-5 p-2
                 ${isLoading && 'brightness-95'}`}
                 ></input>
-
+{error && (
+                <p className="text-red-500 text-center md:text-left mb-1 mt-1">
+                    Wrong credentials. Please try again.
+                </p>
+            )}
                 <input
                     type="submit"
                     value="Log in"
