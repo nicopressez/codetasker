@@ -1,6 +1,8 @@
 
 export default function Homepage() {
   return (
-    <div>Homepage</div>
+    <div className=" bg-gray-100 h-screen w-screen">
+     
+    </div>
   )
 }

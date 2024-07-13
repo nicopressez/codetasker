@@ -1,10 +1,12 @@
 import { Outlet } from "react-router-dom";
-import Sidenav from "./Sidenav";
+import Sidebar from "./Sidebar";
+import Navbar from "./Navbar";
 
 export default function MainPage() {
   return (
     <div>
-     <Sidenav />
+     <Sidebar />
+     <Navbar />
      <Outlet />
     </div>
   )
