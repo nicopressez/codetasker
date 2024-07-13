@@ -1,14 +1,20 @@
 import logo from "../../assets/logo.svg"
 import boardIcon from "../../assets/boardIcon.svg"
 import hideIcon from "../../assets/hideIcon.svg"
+import showIcon from "../../assets/showIcon.svg"
 import boardIconIndigo from "../../assets/boardIconIndigo.svg"
+import { useState } from "react"
 
 
 
 export default function Sidebar() {
 
+  const [hideSidebar, setHideSidebar] = useState(false)
+
   //TODO : Load boards on component mount
   return (
+    <div>
+      {!hideSidebar && 
     <div className="fixed left-0 top-0 w-[19%] bg-white h-screen
      border-gray-200 border-r-[1px] pl-8 pt-5 pb-5">
       <h1
@@ -32,11 +38,19 @@ export default function Sidebar() {
       + Create New Board
       </p>
       </div>
-      <p className="fixed bottom-8 font-rubikMed text-gray-400 hover:text-indigo-500
-      hover:cursor-pointer hover:bg-gray-100">
-      <img src={hideIcon} className="inline mr-4" />
-        Hide Sidebar
+      </div>
+      }
+      <div className={`${hideSidebar? "bg-indigo-400 rounded-r-full hover:bg-indigo-500 " : "w-[19%] hover:bg-gray-100"}
+      fixed bottom-8 left-0 pl-8 hover:text-indigo-500
+      hover:cursor-pointer  text-gray-400
+      `}
+      onClick={() => setHideSidebar(!hideSidebar)}>
+      <p className=" font-rubikMed pt-2 pb-2 ">
+      <img src={hideSidebar ? showIcon : hideIcon} className="inline mr-4" />
+        {!hideSidebar && "Hide Sidebar"}
         </p>
-    </div>
+        </div>
+        </div>
+    
   )
 }
