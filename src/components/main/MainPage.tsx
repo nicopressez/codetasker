@@ -1,13 +1,13 @@
-import { Outlet } from "react-router-dom";
-import Sidebar from "./Sidebar";
-import Navbar from "./Navbar";
+import { Outlet } from 'react-router-dom';
+import Sidebar from './Sidebar';
+import Navbar from './Navbar';
 
 export default function MainPage() {
-  return (
-    <div>
-     <Sidebar />
-     <Navbar />
-     <Outlet />
-    </div>
-  )
+    return (
+        <div className="w-screen h-screen">
+            <Sidebar />
+            <Navbar />
+            <Outlet />
+        </div>
+    );
 }

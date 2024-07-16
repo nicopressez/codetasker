@@ -15,15 +15,15 @@ const Router = () => {
                     element: <Auth />,
                 },
                 {
-                    path:'/home',
+                    path: '/home',
                     element: <MainPage />,
                     children: [
                         {
-                        index:true,
-                        element: <Homepage />
-                        }
-                    ]
-                }
+                            index: true,
+                            element: <Homepage />,
+                        },
+                    ],
+                },
             ],
         },
     ]);
