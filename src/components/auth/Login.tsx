@@ -65,7 +65,7 @@ export default function Login({ setLoginPage }: LoginProps) {
             });
     };
     return (
-        <div className="p-5 md:pt-24 md:pb-20 md:pl-52 md:pr-48 md:h-full  bg-white font-rubik rounded-[1.5rem] md:rounded-r-none md:rounded-l-[2.5rem]">
+        <div className="p-5 md:pt-20 md:pb-20 md:pl-44 md:pr-48 md:h-full  bg-white font-rubik rounded-[1.5rem] md:rounded-r-none md:rounded-l-[2.5rem]">
             <h1 className=" font-bold text-2xl md:text-3xl mb-7 tracking-wide text-center md:text-left">
                 Log in
             </h1>

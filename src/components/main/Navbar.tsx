@@ -1,11 +1,23 @@
 import { useState } from "react"
 import dotsIcon from "../../assets/dotsIcon.svg"
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
+import { getAuth, signOut } from "firebase/auth"
 
 
 export default function Navbar() {
 
   const [toggleMenu, setToggleMenu] = useState(false)
+
+  const auth = getAuth()
+  const signOutButton = () => {
+    signOut(auth)
+      .then(() =>{
+      // Signout successful
+      })
+      .catch((err) => {
+        // Error
+      })
+  }
 
   return (
     <div className="w-full h-[13%] bg-white border-b-[1px]
@@ -32,17 +44,21 @@ export default function Navbar() {
       flex-col bg-white gap-1 drop-shadow-xl rounded-lg
         pt-2 pb-2 justify-center">
         <MenuItem>
-          <p className="pl-6 text-gray-500 block data-[focus]:bg-gray-100">
+          <p className="pl-6 text-gray-500 block data-[focus]:bg-gray-100
+          ">
             Edit Board
           </p>
         </MenuItem>
         <MenuItem>
-          <p className="pl-6 text-red-500 block data-[focus]:bg-gray-100">
+          <p className="pl-6 text-red-500 block data-[focus]:bg-gray-100
+          hover:cursor-pointer">
             Delete Board
           </p>
         </MenuItem>
         <MenuItem>
-          <a className="pl-6 text-red-500 block data-[focus]:bg-gray-100" href="/license">
+          <a onClick={signOutButton}
+          className="pl-6 text-red-500 block data-[focus]:bg-gray-100 
+           hover:cursor-pointer">
             Sign out
           </a>
         </MenuItem>

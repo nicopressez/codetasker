@@ -10,6 +10,7 @@ export default defineConfig({
     },
     plugins: [react()],
     test: {
+        setupFiles: "./src/__tests__/setup.ts",
         environment: 'jsdom',
     },
 });

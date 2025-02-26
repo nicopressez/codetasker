@@ -8,7 +8,7 @@ export default function Auth() {
 
     return (
         <div className=" p-3 md:p-0 bg-indigo-300 w-screen h-full md:fixed">
-            <div className="md:fixed p-2 md:p-0 md:top-44 md:left-20">
+            <div className="md:fixed p-2 md:p-0 md:top-36 md:left-12">
                 <h1
                     className="bg-white md:w-52 font-rubikMed text-3xl md:text-5xl text-center text-gray-800
           pt-2 pb-2 rounded-md"
@@ -38,7 +38,7 @@ export default function Auth() {
                     </p>
                 </div>
             </div>
-            <div className=" md:pl-[37%] md:h-full">
+            <div className=" md:pl-[44%] md:h-full">
                 {loginPage ? (
                     <Login setLoginPage={setLoginPage} />
                 ) : (
