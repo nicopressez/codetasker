@@ -196,6 +196,7 @@ export default function Signup({ setLoginPage }: SignupProps) {
                         className={`text-indigo-400 ml-1 hover:brightness-90
                   hover:underline
        ${isLoading && 'brightness-95'}`}
+                        name='Loginbutton'
                     >
                         Log in
                     </button>
