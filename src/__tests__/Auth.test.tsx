@@ -12,13 +12,16 @@ vi.mock("firebase/app", () => ({
 
 vi.mock("firebase/auth", () => {
     const mockAuth = {
-        signInWithEmailAndPassword: vi.fn((auth, email, password) => 
-            Promise.resolve({ user: { email, uid: "mocked_uid" } })
+        signInWithEmailAndPassword: vi.fn(() => 
+            Promise.resolve()
         ),
-        createUserWithEmailAndPassword: vi.fn((auth, email, password) => 
-            Promise.resolve({ user: { email, uid: "mocked_uid" } })
+        createUserWithEmailAndPassword: vi.fn(() => 
+            Promise.resolve()
         ),
         signOut: vi.fn().mockResolvedValue(undefined),
+        signInWithPopup: vi.fn(() => 
+            Promise.resolve()
+    ),
         onAuthStateChanged: vi.fn(),
     };
 
@@ -33,6 +36,7 @@ return {
     signOut: mockAuth.signOut,
     onAuthStateChanged: mockAuth.onAuthStateChanged,
     GoogleAuthProvider: MockGoogleAuthProvider,
+    signInWithPopup: mockAuth.signInWithPopup,
 };
 });
 
@@ -70,9 +74,7 @@ describe("Auth page", () => {
         expect(signupHeading).not.toBe(null)
     })
 
-    test("FireBase called upon signing up on form", async () => {
-
-        
+    test("FireBase called upon signing up with form", async () => {
 
         await userEvent.type(screen.getByLabelText("Email address"), "test@example.fr");
         await userEvent.type(screen.getByLabelText("Password"), "password12345")
@@ -81,7 +83,29 @@ describe("Auth page", () => {
         await userEvent.click(screen.getByRole('button', { name: "Create Account" }));
 
         const { createUserWithEmailAndPassword } = await import("firebase/auth");
-        expect(createUserWithEmailAndPassword).toHaveBeenCalled();
-    
+        expect(createUserWithEmailAndPassword).toHaveBeenCalled();  
+    })
+
+    test("Firebase called upon logging in with form", async() => {
+
+        const loginButton = screen.getByText('Log in', {selector: "button"})
+        loginButton.click();
+
+        await userEvent.type(screen.getByLabelText("Email address"), "test@example.fr");
+        await userEvent.type(screen.getByLabelText("Password"), "password12345");
+
+        await userEvent.click(screen.getByRole("button", { name: "Log in"}));
+
+        const { signInWithEmailAndPassword } = await import ("firebase/auth");
+        expect (signInWithEmailAndPassword).toHaveBeenCalled();
+
+    })
+
+    test("Google auth called when clicking button", async () => {
+       const googleButton = await screen.findByText("Continue with Google")
+       await userEvent.click(googleButton)
+
+       const { signInWithPopup } = await import("firebase/auth");
+       expect (signInWithPopup).toHaveBeenCalled();
     })
 })
