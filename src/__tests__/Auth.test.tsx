@@ -1,8 +1,8 @@
-import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
+import { afterEach, beforeEach, describe, test, vi, expect } from "vitest";
 import Auth from "../components/auth/Auth";
-import { cleanup, render, screen } from "@testing-library/react";
+import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-
+import '@testing-library/jest-dom/vitest';
 
 // FireBase mocks
 
@@ -82,22 +82,23 @@ describe("Auth page", () => {
 
         await userEvent.click(screen.getByRole('button', { name: "Create Account" }));
 
-        const { createUserWithEmailAndPassword } = await import("firebase/auth");
-        expect(createUserWithEmailAndPassword).toHaveBeenCalled();  
+        const { createUserWithEmailAndPassword, getAuth } = await import("firebase/auth");
+        const mockAuth = getAuth()
+        expect(createUserWithEmailAndPassword).toHaveBeenCalledWith(mockAuth, "test@example.fr", "password12345");  
     })
 
     test("Firebase called upon logging in with form", async() => {
 
-        const loginButton = screen.getByText('Log in', {selector: "button"})
-        loginButton.click();
 
+        await userEvent.click(screen.getByText("Log in", {selector: "button"}))
         await userEvent.type(screen.getByLabelText("Email address"), "test@example.fr");
         await userEvent.type(screen.getByLabelText("Password"), "password12345");
-
+        
         await userEvent.click(screen.getByRole("button", { name: "Log in"}));
 
-        const { signInWithEmailAndPassword } = await import ("firebase/auth");
-        expect (signInWithEmailAndPassword).toHaveBeenCalled();
+        const { signInWithEmailAndPassword, getAuth } = await import ("firebase/auth");
+        const mockAuth = getAuth()
+        expect (signInWithEmailAndPassword).toHaveBeenCalledWith(mockAuth, "test@example.fr", "password12345");
 
     })
 
