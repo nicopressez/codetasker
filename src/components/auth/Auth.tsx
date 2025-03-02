@@ -1,10 +1,25 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Signup from './Signup';
 import Login from './Login';
 import logo from '../../assets/logo.svg';
 
 export default function Auth() {
+    const [width, setWidth] = useState(window.innerWidth)
     const [loginPage, setLoginPage] = useState(false);
+
+    const handleWindowSizeChange = () => {
+        setWidth(window.innerWidth)
+    }
+
+    const isMobile = width <= 400;
+
+    // Listen to page width to detect mobile device
+    useEffect(() => {
+        window.addEventListener('resize', handleWindowSizeChange);
+        return () => {
+            window.removeEventListener('resize', handleWindowSizeChange)
+        }
+    }, [])
 
     return (
         <div className=" p-3 md:p-0 bg-indigo-300 w-screen h-full md:fixed">
@@ -40,9 +55,9 @@ export default function Auth() {
             </div>
             <div className=" md:pl-[44%] md:h-full">
                 {loginPage ? (
-                    <Login setLoginPage={setLoginPage} />
+                    <Login setLoginPage={setLoginPage} isMobile={isMobile} />
                 ) : (
-                    <Signup setLoginPage={setLoginPage} />
+                    <Signup setLoginPage={setLoginPage} isMobile={isMobile} />
                 )}
             </div>
         </div>

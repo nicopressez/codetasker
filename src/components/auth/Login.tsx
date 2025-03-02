@@ -3,15 +3,17 @@ import {
     getAuth,
     signInWithPopup,
     GoogleAuthProvider,
+    signInWithRedirect
 } from 'firebase/auth';
 import React, { useState } from 'react';
 import googleLogo from '../../assets/google.png';
 
 type LoginProps = {
     setLoginPage: React.Dispatch<React.SetStateAction<boolean>>;
+    isMobile: boolean;
 };
 
-export default function Login({ setLoginPage }: LoginProps) {
+export default function Login({ setLoginPage, isMobile }: LoginProps) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -30,7 +32,9 @@ export default function Login({ setLoginPage }: LoginProps) {
 
     // Google authentication
     const handleGoogleAuth = () => {
-        // TODO: For phone users, login with redirect
+        if(isMobile) {
+            signInWithRedirect(auth,provider)
+        } else {
         signInWithPopup(auth, provider)
             .then((result) => {
                 // Logged in
@@ -41,6 +45,7 @@ export default function Login({ setLoginPage }: LoginProps) {
             .catch(() => {
                 setError(true);
             });
+        }
     };
     // Send login request on submit
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {

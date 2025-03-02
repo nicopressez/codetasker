@@ -4,14 +4,16 @@ import {
     createUserWithEmailAndPassword,
     signInWithPopup,
     GoogleAuthProvider,
+    signInWithRedirect,
 } from 'firebase/auth';
 import googleLogo from '../../assets/google.png';
 
 type SignupProps = {
     setLoginPage: React.Dispatch<React.SetStateAction<boolean>>;
+    isMobile: boolean;
 };
 
-export default function Signup({ setLoginPage }: SignupProps) {
+export default function Signup({ setLoginPage, isMobile }: SignupProps) {
     const auth = getAuth();
     const provider = new GoogleAuthProvider();
 
@@ -50,7 +52,9 @@ export default function Signup({ setLoginPage }: SignupProps) {
 
     // Google authentication
     const handleGoogleAuth = () => {
-        // TODO: For phone users, login with redirect
+        if (isMobile) {
+            signInWithRedirect(auth, provider)
+        } else {
         signInWithPopup(auth, provider)
             .then((result) => {
                 // Logged in
@@ -62,6 +66,7 @@ export default function Signup({ setLoginPage }: SignupProps) {
                 // TODO: Add error handling
                 console.log(error);
             });
+        }
     };
     // Send signup request on submit
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
