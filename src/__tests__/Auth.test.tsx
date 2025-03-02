@@ -1,7 +1,7 @@
 import './__mocks__/firebase'
 import { afterEach, beforeEach, describe, test, vi, expect } from "vitest";
 import Auth from "../components/auth/Auth";
-import { cleanup, render, screen, waitFor } from "@testing-library/react";
+import { cleanup, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import '@testing-library/jest-dom/vitest';
 

@@ -2,10 +2,27 @@ import { useEffect, useState } from 'react';
 import Signup from './Signup';
 import Login from './Login';
 import logo from '../../assets/logo.svg';
+import { signInWithRedirect,
+    signInWithPopup,
+    getAuth,
+    GoogleAuthProvider,
+    getRedirectResult, } from 'firebase/auth';
 
 export default function Auth() {
     const [width, setWidth] = useState(window.innerWidth)
     const [loginPage, setLoginPage] = useState(false);
+    const [googleLoginError, setGoogleLoginError] = useState(false);
+    const [googleSignupError, setGoogleSignupError] = useState(false);
+
+    const auth = getAuth()
+    const provider = new GoogleAuthProvider();
+
+    getRedirectResult(auth)
+        .catch(() => {
+            if(loginPage) setGoogleLoginError(true);
+            else setGoogleSignupError(true);
+  });
+
 
     const handleWindowSizeChange = () => {
         setWidth(window.innerWidth)
@@ -20,6 +37,19 @@ export default function Auth() {
             window.removeEventListener('resize', handleWindowSizeChange)
         }
     }, [])
+
+      // Google authentication
+        const handleGoogleAuth = (page: string) => {
+            if(isMobile) {
+                signInWithRedirect(auth,provider)
+            } else {
+            signInWithPopup(auth, provider)
+                .catch(() => {
+                    if(page === "login") setGoogleLoginError(true)
+                    if(page === "signup") setGoogleSignupError(true)
+                });
+            }
+        };
 
     return (
         <div className=" p-3 md:p-0 bg-indigo-300 w-screen h-full md:fixed">
@@ -55,9 +85,15 @@ export default function Auth() {
             </div>
             <div className=" md:pl-[44%] md:h-full">
                 {loginPage ? (
-                    <Login setLoginPage={setLoginPage} isMobile={isMobile} />
+                    <Login 
+                    setLoginPage={setLoginPage} 
+                    handleGoogleAuth={handleGoogleAuth}
+                    googleError={googleLoginError} />
                 ) : (
-                    <Signup setLoginPage={setLoginPage} isMobile={isMobile} />
+                    <Signup 
+                    setLoginPage={setLoginPage}
+                    handleGoogleAuth={handleGoogleAuth}
+                    googleError={googleSignupError} />
                 )}
             </div>
         </div>

@@ -1,52 +1,32 @@
 import {
     signInWithEmailAndPassword,
     getAuth,
-    signInWithPopup,
-    GoogleAuthProvider,
-    signInWithRedirect
 } from 'firebase/auth';
 import React, { useState } from 'react';
 import googleLogo from '../../assets/google.png';
 
 type LoginProps = {
     setLoginPage: React.Dispatch<React.SetStateAction<boolean>>;
-    isMobile: boolean;
+    handleGoogleAuth: (page: string) => void;
+    googleError: boolean;
 };
 
-export default function Login({ setLoginPage, isMobile }: LoginProps) {
+export default function Login({ setLoginPage, handleGoogleAuth, googleError }: LoginProps) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(false);
 
-    const auth = getAuth();
-    const provider = new GoogleAuthProvider();
+    const auth = getAuth()
 
     // Edit state values on input change
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         if (name === 'email') setEmail(value);
         if (name === 'password') setPassword(value);
-    };
+    }; 
 
-    // Google authentication
-    const handleGoogleAuth = () => {
-        if(isMobile) {
-            signInWithRedirect(auth,provider)
-        } else {
-        signInWithPopup(auth, provider)
-            .then((result) => {
-                // Logged in
-                const credential =
-                    GoogleAuthProvider.credentialFromResult(result);
-                const token = credential?.accessToken;
-            })
-            .catch(() => {
-                setError(true);
-            });
-        }
-    };
     // Send login request on submit
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -54,15 +34,12 @@ export default function Login({ setLoginPage, isMobile }: LoginProps) {
         setIsLoading(true);
 
         signInWithEmailAndPassword(auth, email, password)
-            .then((userCredentials) => {
+            .then(() => {
                 setTimeout(() => {
                     setIsLoading(false);
-                }, 200);
-                const user = userCredentials;
-                // TODO: Store user data
-                console.log(user);
+                }, 200);      
             })
-            .catch((err) => {
+            .catch(() => {
                 setError(true);
                 setTimeout(() => {
                     setIsLoading(false);
@@ -78,7 +55,7 @@ export default function Login({ setLoginPage, isMobile }: LoginProps) {
                 <button
                     className="text-center w-full border-2 border-gray-200 rounded-lg
                 p-2 hover:brightness-95 "
-                    onClick={handleGoogleAuth}
+                    onClick={() => handleGoogleAuth("login")}
                 >
                     <img src={googleLogo} alt="Logo" className="inline mr-2" />
                     Continue with Google

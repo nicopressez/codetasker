@@ -13,6 +13,7 @@ vi.mock("firebase/auth", () => {
         signOut: vi.fn().mockResolvedValue(undefined),
         signInWithPopup: vi.fn(() => Promise.resolve()),
         signInWithRedirect: vi.fn(() => Promise.resolve()),
+        getRedirectResult: vi.fn(() => Promise.resolve()),
         onAuthStateChanged: vi.fn(),
     };
 
@@ -29,5 +30,6 @@ return {
     GoogleAuthProvider: MockGoogleAuthProvider,
     signInWithPopup: mockAuth.signInWithPopup,
     signInWithRedirect: mockAuth.signInWithRedirect,
+    getRedirectResult: mockAuth.getRedirectResult,
 };
 });
