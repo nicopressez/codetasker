@@ -37,7 +37,7 @@ export default function Navbar() {
      </button>
      <Menu as="div" className="relative font-rubik">
       <MenuButton>
-        <img src={dotsIcon}/>
+        <img src={dotsIcon} data-testid="navSettings"/>
       </MenuButton>
       <MenuItems
       className="absolute mt-2 mr-2 right-0 w-52 flex

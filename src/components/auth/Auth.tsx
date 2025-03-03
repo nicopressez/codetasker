@@ -41,6 +41,7 @@ export default function Auth() {
       // Google authentication
         const handleGoogleAuth = (page: string) => {
             if(isMobile) {
+                //TODO: Test on live 
                 signInWithRedirect(auth,provider)
             } else {
             signInWithPopup(auth, provider)
